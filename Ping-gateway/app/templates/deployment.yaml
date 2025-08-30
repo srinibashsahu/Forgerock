@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-gateway
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ping-gateway
+  template:
+    metadata:
+      labels:
+        app: ping-gateway
+    spec:
+      containers:
+        - name: ping-gateway
+          image: ig-custom # Local image name
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PING_IDENTITY_ACCEPT_EULA
+              value: "YES"
+            - name: STARTUP_COMMAND
+              value: "start-server"

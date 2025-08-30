@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ig-deployment
+  labels:
+    app: ig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ig
+  template:
+    metadata:
+      labels:
+        app: ig
+    spec:
+      containers:
+        - name: ig-container
+          image: ig-custom  # Local image name
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PING_ENV_FILE
+              value: /opt/config/env.properties
+          volumeMounts:
+            - name: ig-env-volume
+              mountPath: /opt/config
+              readOnly: true
+          ports:
+            - containerPort: 8080
+      volumes:
+        - name: ig-env-volume
+          configMap:
+            name: ig-env-config

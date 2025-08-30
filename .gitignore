@@ -1,0 +1,4 @@
+# Ignore zip, war, and jar files
+*.zip
+*.war
+*.jar

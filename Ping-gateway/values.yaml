@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: pingidentity/pinggateway
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  hostname: ping.local
+  tls:
+    enabled: true
+    secretName: ping-local-tls

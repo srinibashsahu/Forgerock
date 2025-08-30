@@ -1,0 +1,6 @@
+{
+    "mode": "DEVELOPMENT",
+    "connectors": [
+      { "port" : 8080 }
+    ]
+  }

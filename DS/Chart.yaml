@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ping-ds
+description: Helm chart for Ping Identity PingGateway
+type: application
+version: 0.1.0
+appVersion: "1.0"   # adjust version

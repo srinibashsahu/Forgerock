@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-ds
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ping-ds
+  template:
+    metadata:
+      labels:
+        app: ping-ds
+    spec:
+      containers:
+        - name: ping-ds
+          image: forgerock-ds:7.5.1 # Local image name
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PING_IDENTITY_ACCEPT_EULA
+              value: "YES"
+            - name: STARTUP_COMMAND
+              value: "start-server"
