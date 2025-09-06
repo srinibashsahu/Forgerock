@@ -16,7 +16,7 @@
             "passwordSecretId": "agent.secret.id"
           },
           "secretsProvider": "SystemAndEnvSecretStore-1",
-          "url": "http://host.docker.internal:8181/openam"
+          "url": "http://am.example.com:8181/openam"
         }
       }
     ],

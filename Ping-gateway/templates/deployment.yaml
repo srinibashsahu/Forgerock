@@ -12,9 +12,13 @@ spec:
       labels:
         app: ping-gateway
     spec:
+      {{- with .Values.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: ping-gateway
-          image: ig-custom # Local image name
+          image: ig-custom
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080

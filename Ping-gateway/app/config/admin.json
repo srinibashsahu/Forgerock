@@ -1,6 +1,58 @@
-{
-    "mode": "DEVELOPMENT",
-    "connectors": [
-      { "port" : 8080 }    
-    ]
-  }
+
+  {
+   "mode": "DEVELOPMENT",
+  "connectors": [
+    {
+      "port": 8080
+    },
+    {
+      "port": 8443,
+      "tls": "ServerTlsOptions-1"
+    }
+  ],
+  "heap": [
+    {
+      "name": "ServerTlsOptions-1",
+      "type": "ServerTlsOptions",
+      "config": {
+        "sni": {
+          "serverNames": {
+            "ig.example.com": "key.manager.secret.id",
+            "*.example.com": "wildcard.secret.id"
+          },
+          "defaultSecretId" : "default.secret.id",
+          "secretsProvider": "ServerIdentityStore"
+        }
+      }
+    },
+    {
+      "name": "ServerIdentityStore",
+      "type": "FileSystemSecretStore",
+      "config": {
+        "format": "PLAIN",
+        "directory": "/opt/secrets",
+        "suffix": ".pem",
+        "mappings": [
+          {
+            "secretId": "key.manager.secret.id",
+            "format": {
+              "type": "PemPropertyFormat"
+            }
+          },
+          {
+            "secretId": "wildcard.secret.id",
+            "format": {
+              "type": "PemPropertyFormat"
+            }
+          },
+          {
+            "secretId": "default.secret.id",
+            "format": {
+              "type": "PemPropertyFormat"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
