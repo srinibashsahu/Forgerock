@@ -7,8 +7,8 @@ image:
 
 service:
   type: ClusterIP
-  port: 80
-  targetPort: 8080
+  port: 443             # ⬅️ External port that Ingress hits
+  targetPort: 8443      # ⬅️ Internal port DS is actually listening on
 
 ingress:
   enabled: true

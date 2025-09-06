@@ -5,6 +5,7 @@ metadata:
   name: ping-ds
   annotations:
     kubernetes.io/ingress.class: {{ .Values.ingress.className | quote }}
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"  # ✅ Force HTTPS to backend
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   {{- if .Values.ingress.tls.enabled }}
@@ -17,7 +18,7 @@ spec:
     - host: {{ .Values.ingress.hostname | quote }}
       http:
         paths:
-          - path: /
+          - path: /alive
             pathType: Prefix
             backend:
               service:

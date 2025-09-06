@@ -40,5 +40,5 @@ kubectl create secret tls ping-local-tls \
   For Directory Server:
   kubectl create secret tls ping-local-ds-tls \
   --cert=default.ds.example.com.pem \
-  --key=default.ds.example.com
+  --key=default.ds.example.com-key.pem
 ```

@@ -1,0 +1,20 @@
+{
+  "handler": {
+    "type": "Router",
+    "name": "_router",
+    "capture": "all"
+  },
+  "heap": [
+    {
+      "name": "capture",
+      "type": "CaptureDecorator",
+      "config": {
+        "captureEntity": true,
+        "_captureContext": true
+      }
+    }
+  ],
+  "session": {
+    "type": "JwtSessionManager"
+  }
+}
