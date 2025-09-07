@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- Console appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- JSON appender for structured logging -->
+    <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSX</timestampFormat>
+                <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
+                <appendLineSeparator>true</appendLineSeparator>
+                <includeThreadName>true</includeThreadName>
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>false</prettyPrint>
+                </jsonFormatter>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- ForgeRock specific loggers -->
+    <logger name="org.forgerock.openig" level="INFO"/>
+    <logger name="org.forgerock.http" level="INFO"/>
+    <logger name="org.forgerock.json" level="INFO"/>
+    <logger name="org.forgerock.audit" level="INFO"/>
+
+    <!-- Security related logging -->
+    <logger name="org.forgerock.openig.security" level="INFO"/>
+    
+    <!-- Performance logging -->
+    <logger name="org.forgerock.openig.handler.router" level="INFO"/>
+    <logger name="org.forgerock.openig.decoration.timer" level="INFO"/>
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="JSON" />
+    </root>
+
+</configuration>

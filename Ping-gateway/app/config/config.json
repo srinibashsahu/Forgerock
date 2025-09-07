@@ -1,17 +1,46 @@
 {
-  "handler": {
-    "type": "Router",
-    "name": "_router",
-    "capture": "all"
-  },
+  "handler": "DefaultDispatchHandler",
   "heap": [
     {
       "name": "capture",
       "type": "CaptureDecorator",
       "config": {
         "captureEntity": true,
-        "_captureContext": true
+        "captureContext": true
       }
+    },
+    {
+      "name": "MDCFilter",
+      "type": "ScriptableFilter",
+      "config": {
+        "type": "application/x-groovy",
+        "file": "scripts/MDCFilter.groovy"
+      }
+    },
+    {
+      "name": "DefaultDispatchHandler",
+      "type": "DispatchHandler",
+      "config": {
+        "bindings": [
+          {
+            "condition": "${matches(request.uri.path, '^/.*')}",
+            "handler": {
+              "type": "Chain",
+              "config": {
+                "filters": [
+                  "MDCFilter"
+                ],
+                "handler": "_router"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "_router",
+      "type": "Router",
+      "capture": "all"
     }
   ],
   "session": {
